@@ -98,7 +98,12 @@ bool VtolLandDetector::_get_landed_state()
 
 	// only consider airspeed if we have been in air before to avoid false
 	// detections in the case of wind on the ground
-	if (_was_in_air && _airspeed_filtered > _params.maxAirSpeed) {
+	if (_was_in_air && (_airspeed_filtered > _params.maxAirSpeed)) {
+
+		if (landed) {
+			PX4_ERR("overriding landed!");
+		}
+
 		landed = false;
 	}
 
